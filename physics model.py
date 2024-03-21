@@ -7,3 +7,4 @@ with open('DATA FOR MODEL.csv', newline='') as csvfile:
 def powerconsumption(month,time):
   return #whatever we decide the graph to be
 print(pcd)
+pcd = [[x[0], float(x[1])] for x in pcd[1:]]
