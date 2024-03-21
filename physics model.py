@@ -1,6 +1,6 @@
 print ("test")
 import csv
-with open('DATAFORMODEL.csv', newline='') as csvfile:
+with open('DATA FOR MODEL.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     pcd = list(reader)
 
