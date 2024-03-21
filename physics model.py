@@ -1,4 +1,3 @@
-print ("test")
 import csv
 with open('DATA FOR MODEL.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
