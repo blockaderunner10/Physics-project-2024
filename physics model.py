@@ -1,5 +1,5 @@
 print ("test")
-
+import csv
 
 #MODEL OF POWER CONSUMPTION
 def powerconsumption(month,time):
