@@ -7,3 +7,4 @@ with open('DATAFORMODEL.csv', newline='') as csvfile:
 #MODEL OF POWER CONSUMPTION
 def powerconsumption(month,time):
   return #whatever we decide the graph to be
+print(pcd)
