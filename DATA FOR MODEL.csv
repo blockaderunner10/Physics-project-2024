@@ -1,4 +1,4 @@
-Time,Proportion of daily energy consumption consumed in the given hour,,Month,Average energy consumption per hour (in kWh)
+Time,Proportion of daily energy consumption consumed in the given hour,,Month,Average energy consumption per day (in kWh)
 1,0.018214936,,January,229456.432
 2,0.016393443,,February,234246.9351
 3,0.014571949,,March,220292.5495
