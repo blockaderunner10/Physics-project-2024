@@ -3,8 +3,11 @@ with open('DATA FOR MODEL.csv', newline='') as csvfile: #Importing our csv of da
     reader = csv.reader(csvfile, delimiter=',')
     pcd = list(reader)
 
-pcd = [[x[0], float(x[1])] for x in pcd[1:]]#Removing the headings of the csv file
-print(pcd)
+proportionsforhours = [[x[0], float(x[1])] for x in pcd[1:]]#Removing the headings off the columns 'Proportion of daily energy consumption consumed in the given hour'
+print(proportionsforhours)
+
+energyperhour = [[x[3], float(x[4])] for x in pcd[1:]]#Removing the headings off the columns 'Average energy consumption per hour (in kWh)'
+print(energyperhour)
 
 #MODEL OF POWER CONSUMPTION
 def powerconsumption(month,time):
