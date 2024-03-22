@@ -32,4 +32,38 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.title(f"Energy Demand against our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
     plt.show()
 
-model(2,12,0,0,0)#Testing with February 21:00
+def getdate():
+    desiredmonth=input("please enter your desired month (use the 3 letter forms all caps)")
+    if desiredmonth=="JAN":
+        desiredmonthint=1
+    if desiredmonth=="FEB":
+        desiredmonthint=2
+    if desiredmonth=="MAR":
+        desiredmonthint=3
+    if desiredmonth=="APR":
+        desiredmonthint=4
+    if desiredmonth=="MAY":
+        desiredmonthint=5
+    if desiredmonth=="JUN":
+        desiredmonthint=6
+    if desiredmonth=="JUL":
+        desiredmonthint=7
+    if desiredmonth=="AUG":
+        desiredmonthint=8
+    if desiredmonth=="SEP":
+        desiredmonthint=9
+    if desiredmonth=="OCT":
+        desiredmonthint=10
+    if desiredmonth=="NOV":
+        desiredmonthint=11
+    if desiredmonth=="DEC":
+        desiredmonthint=12
+    else:
+        print("Input not recognised please re-run the program")
+    desiredmonthint2=desiredmonthint
+    return (desiredmonthint2,desiredmonth)
+    print(desiredmonthint2, desiredmonth)
+    
+desiredmonth, desiredmonthint2 =getdate()
+print(desiredmonth) 
+model(desiredmonth,12,0,0,0)#Testing with February 12:00
