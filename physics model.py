@@ -33,7 +33,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.show()
 
 def getdate():
-    desiredmonth=input("please enter your desired month (use the 3 letter forms all caps)")
+    desiredmonth=input("Please enter your desired month (use the 3 letter forms all caps)")
     if desiredmonth=="JAN":
         desiredmonthint=1
     elif desiredmonth=="FEB":
@@ -63,7 +63,7 @@ def getdate():
     print(desiredmonthint2, desiredmonth)
     
 def gettime():
-    desiredtime=int(input("please enter the hour you wish to model (between 1 and 24 inclusive)"))
+    desiredtime=int(input("Please enter the hour you wish to model (between 1 and 24 inclusive)"))
     return (desiredtime)
     
 desiredmonth, desiredmonthint2 =getdate()
