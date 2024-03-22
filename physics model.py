@@ -36,34 +36,37 @@ def getdate():
     desiredmonth=input("please enter your desired month (use the 3 letter forms all caps)")
     if desiredmonth=="JAN":
         desiredmonthint=1
-    if desiredmonth=="FEB":
+    elif desiredmonth=="FEB":
         desiredmonthint=2
-    if desiredmonth=="MAR":
+    elif desiredmonth=="MAR":
         desiredmonthint=3
-    if desiredmonth=="APR":
+    elif desiredmonth=="APR":
         desiredmonthint=4
-    if desiredmonth=="MAY":
+    elif desiredmonth=="MAY":
         desiredmonthint=5
-    if desiredmonth=="JUN":
+    elif desiredmonth=="JUN":
         desiredmonthint=6
-    if desiredmonth=="JUL":
+    elif desiredmonth=="JUL":
         desiredmonthint=7
-    if desiredmonth=="AUG":
+    elif desiredmonth=="AUG":
         desiredmonthint=8
-    if desiredmonth=="SEP":
+    elif desiredmonth=="SEP":
         desiredmonthint=9
-    if desiredmonth=="OCT":
+    elif desiredmonth=="OCT":
         desiredmonthint=10
-    if desiredmonth=="NOV":
+    elif desiredmonth=="NOV":
         desiredmonthint=11
-    if desiredmonth=="DEC":
+    elif desiredmonth=="DEC":
         desiredmonthint=12
-    else:
-        print("Input not recognised please re-run the program")
     desiredmonthint2=desiredmonthint
     return (desiredmonthint2,desiredmonth)
     print(desiredmonthint2, desiredmonth)
     
+def gettime():
+    desiredtime=int(input("please enter the hour you wish to model (between 1 and 24 inclusive)"))
+    return (desiredtime)
+    
 desiredmonth, desiredmonthint2 =getdate()
-print(desiredmonth) 
-model(desiredmonth,12,0,0,0)#Testing with February 12:00
+desiredtime=gettime()
+print("you are creating a graph at",desiredtime, desiredmonthint2, "(", desiredmonth, ")") 
+model(desiredmonth,desiredtime,0,0,0)#Testing with February 12:00
