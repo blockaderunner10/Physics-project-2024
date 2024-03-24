@@ -1,0 +1,15 @@
+Wind Speed (MPH),Annual energy output per wind turbine (kW),,Month,Average Wind Speed to the closest integer in that month in ms-1,Annual energy output per wind turbine at that wind speed (kW)
+1,2,,January,6,296000
+2,2171,,February,6,296000
+3,17300,,March,6,296000
+4,60200,,April,5,148500
+5,148500,,May,5,148500
+6,296000,,June,4,60200
+7,513000,,July,4,60200
+8,812000,,August,4,60200
+9,1200000,,September,5,148500
+,,,October,5,148500
+,,,November,5,148500
+,,,December,5,148500
+,,,,,
+,,,,,
