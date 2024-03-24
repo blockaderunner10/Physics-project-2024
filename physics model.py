@@ -3,13 +3,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #Importing and adjusting csv for Energy Consumption Data
-with open('DATA FOR MODEL.csv', newline='') as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')
-    pcd = list(reader)
+with open('./DATA/DATA FOR MODEL.csv', newline='') as csvfile:
+    reader0 = csv.reader(csvfile, delimiter=',')
+    dfm = list(reader0)
+with open('./DATA/WIND_TURBINE_DATA.csv', newline='') as csvfile:
+    reader1 = csv.reader(csvfile, delimiter=',')
+    wtd = list(reader1)
 
-proportionsforhours = [[x[0], (x[1])] for x in pcd[1:26]]#Removing headers and grouping data to make objects
+proportionsforhours = [[x[0], (x[1])] for x in dfm[1:26]]#Removing headers and grouping data to make objects
 
 energyperday = [[x[3], (x[4])] for x in pcd[1:14]]
+
+windturb = [[(x[3]), (x[4]), (x[5])] for x in wtd[1:12]]
 
 #MODEL OF POWER CONSUMPTION
 def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number of Solar Panels, number of Wind Turbines, number of Tidal Turbines
@@ -22,18 +27,22 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     
     #Calculating Energy Demand per hour from data in csv
     datatoplot[0,0]=float(proportionsforhours[time][1])*float(energyperday[month][1])
+    
+    #Calculating Power from Wind Turbines from wind speed data in csv
+    datatoplot[3,0]=float(windturb[month][2])*desiredwindturb/(365*24)
 
     print(datatoplot)
     
     #Plotting bar chart
     plt.bar(sources, datatoplot[0:,0])
     plt.xlabel('Resource')
-    plt.ylabel('Energy Demand/Supply in kWh per hour')
-    plt.title(f"Energy Demand against our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
+    plt.ylabel('Power Demand/Supply in kW')
+    plt.title(f"Power Demand with our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
+    plt.tick_params(axis='both', which='major', labelsize=6)
     plt.show()
 
 def getdate():
-    desiredmonth=input("Please enter your desired month (use the 3 letter forms all caps)")
+    desiredmonth=input("Please enter the month you would like to model (Use the 3 letter forms in all caps e.g. JAN for January)")
     if desiredmonth=="JAN":
         desiredmonthint=1
     elif desiredmonth=="FEB":
@@ -63,10 +72,17 @@ def getdate():
     print(desiredmonthint2, desiredmonth)
     
 def gettime():
-    desiredtime=int(input("Please enter the hour you wish to model (between 1 and 24 inclusive)"))
+    desiredtime=int(input("Please enter the hour you wish to model (between 1 and 24 inclusive e.g. 13 for 1pm)"))
     return (desiredtime)
+
+def noofwindturbines():
+    desiredwindturb=int(input("Please enter the number of wind turbines you wish to put up"))
+    return (desiredwindturb)
     
+
 desiredmonth, desiredmonthint2 =getdate()
 desiredtime=gettime()
-print("you are creating a graph at",desiredtime, desiredmonthint2, "(", desiredmonth, ")") 
-model(desiredmonth,desiredtime,0,0,0)#Testing with February 12:00
+desiredwindturb=noofwindturbines()
+print("You are creating a graph at",desiredtime, desiredmonthint2, "(", desiredmonth, ")") 
+
+model(desiredmonth,desiredtime,0,desiredwindturb,0)
