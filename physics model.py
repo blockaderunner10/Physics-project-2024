@@ -34,8 +34,8 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     datatoplot[0,0]=float(proportionsforhours[time][1])*float(energyperday[month][1])
     
     #Calculating Power from Wind Turbines from wind speed data in csv
-    datatoplot[3,0]=float(windturb[month][2])*desiredwindturb/(365*24)
-
+    datatoplot[3,0]=float(windturb[month][2])*desiredwindturb/(1000)
+    print ("WINDPOWER CHECK", float(windturb[month][2])*desiredwindturb/(1000))
     print(datatoplot)
     
     #Plotting bar chart
