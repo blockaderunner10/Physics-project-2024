@@ -31,7 +31,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     datatoplot=np.zeros((5,1)) #Creating an empty array for values to plot
     
     #Calculating Energy Demand per hour from data in csv
-    datatoplot[0,0]=float(proportionsforhours[time][1])*float(energyperday[month][1])
+    datatoplot[0,0]=-float(proportionsforhours[time][1])*float(energyperday[month][1])
     
     #Calculating Power from Wind Turbines from wind speed data in csv
     datatoplot[3,0]=float(windturb[month][2])*desiredwindturb/(1000)
@@ -40,6 +40,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     
     #Plotting bar chart
     plt.bar(sources, datatoplot[0:,0])
+    plt.axhline(y=0,color='black',linewidth=1)
     plt.xlabel('Resource')
     plt.ylabel('Power Demand/Supply in kW')
     plt.title(f"Power Demand with our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
