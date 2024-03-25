@@ -6,16 +6,18 @@ import matplotlib.pyplot as plt
 with open('./DATA/DATA FOR MODEL.csv', newline='') as csvfile:
     reader0 = csv.reader(csvfile, delimiter=',')
     dfm = list(reader0)
+'''
 with open('./DATA/DATA FOR MODEL.csv', newline='') as csvfile:
     reader0 = csv.reader(csvfile, delimiter=',')
     pcd = list(reader0)
+    '''
 with open('./DATA/WIND_TURBINE_DATA.csv', newline='') as csvfile:
     reader1 = csv.reader(csvfile, delimiter=',')
     wtd = list(reader1)
 
 proportionsforhours = [[x[0], (x[1])] for x in dfm[1:26]]#Removing headers and grouping data to make objects
 
-energyperday = [[x[3], (x[4])] for x in pcd[1:14]]
+energyperday = [[x[3], (x[4])] for x in dfm[1:14]]
 
 windturb = [[(x[3]), (x[4]), (x[5])] for x in wtd[1:12]]
 
