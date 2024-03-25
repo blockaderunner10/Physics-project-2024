@@ -26,7 +26,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     month=month-1 #Subtracting 1 to factor in for first element being 0th index in the array but 1st month (January), for example
     time=time-1 
     
-    sources=['Energy Demand','Tidal Supply', 'Solar Supply', 'Onshore Wind Supply','Net Energy']#Creating categories for x axis bar charts
+    sources=['Energy Demand','Sewage Supply', 'Solar Supply', 'Onshore Wind Supply','Net Energy']#Creating categories for x axis bar charts
     
     datatoplot=np.zeros((5,1)) #Creating an empty array for values to plot
     
@@ -36,15 +36,25 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     #Calculating Power from Wind Turbines from wind speed data in csv
     datatoplot[3,0]=float(windturb[month][2])*desiredwindturb/(1000)
     print ("WINDPOWER CHECK", float(windturb[month][2])*desiredwindturb/(1000))
+    
+    datatoplot[4,0]=datatoplot[1,0]+datatoplot[2,0]+datatoplot[3,0]+datatoplot[0,0]
+    
     print(datatoplot)
     
+    
     #Plotting bar chart
-    plt.bar(sources, datatoplot[0:,0])
+    plt.bar(sources[0:3], datatoplot[0:3,0])
     plt.axhline(y=0,color='black',linewidth=1)
     plt.xlabel('Resource')
     plt.ylabel('Power Demand/Supply in kW')
     plt.title(f"Power Demand with our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
     plt.tick_params(axis='both', which='major', labelsize=6)
+    
+    if datatoplot[4,0]>0:
+        plt.bar(sources[4],datatoplot[4,0],color='green')
+    else:
+        plt.bar(sources[4],datatoplot[4,0],color='red')
+    
     plt.show()
 
 def getdate():
