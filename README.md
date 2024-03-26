@@ -1,6 +1,6 @@
 Physics Project 2024
 By group 9:
-  Reseacrh Done by:
+  Research Done by:
     Skye Aitken
     Lucy Hensman
     Lukas Hobson
