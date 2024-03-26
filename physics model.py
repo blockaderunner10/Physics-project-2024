@@ -59,32 +59,32 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
 
 def getdate():
     desiredmonth=input("Please enter the month you would like to model (Use the 3 letter forms in all caps e.g. JAN for January)")
-    if desiredmonth=="JAN":
-        desiredmonthint=1
-    elif desiredmonth=="FEB":
-        desiredmonthint=2
-    elif desiredmonth=="MAR":
-        desiredmonthint=3
-    elif desiredmonth=="APR":
-        desiredmonthint=4
-    elif desiredmonth=="MAY":
-        desiredmonthint=5
-    elif desiredmonth=="JUN":
-        desiredmonthint=6
-    elif desiredmonth=="JUL":
-        desiredmonthint=7
-    elif desiredmonth=="AUG":
-        desiredmonthint=8
-    elif desiredmonth=="SEP":
-        desiredmonthint=9
-    elif desiredmonth=="OCT":
-        desiredmonthint=10
-    elif desiredmonth=="NOV":
-        desiredmonthint=11
-    elif desiredmonth=="DEC":
-        desiredmonthint=12
-    desiredmonthint2=desiredmonthint
-    return (desiredmonthint2,desiredmonth)
+    match desiredmonth:
+        case "JAN":
+            desiredmonthint=1
+        case "FEB":
+            desiredmonthint=2
+        case "MAR":
+            desiredmonthint=3
+        case "APR":
+            desiredmonthint=4
+        case "MAY":
+            desiredmonthint=5
+        case "JUN":
+            desiredmonthint=6
+        case "JUL":
+            desiredmonthint=7
+        case "AUG":
+            desiredmonthint=8
+        case "SEP":
+            desiredmonthint=9
+        case "OCT":
+            desiredmonthint=10
+        case "NOV":
+            desiredmonthint=11
+        case "DEC":
+            desiredmonthint=12
+    return (desiredmonthint,desiredmonth)
     print(desiredmonthint2, desiredmonth)
     
 def gettime():
@@ -96,9 +96,9 @@ def noofwindturbines():
     return (desiredwindturb)
     
 
-desiredmonth, desiredmonthint2 =getdate()
+desiredmonth, desiredmonthint =getdate()
 desiredtime=gettime()
 desiredwindturb=noofwindturbines()
-print("You are creating a graph at",desiredtime, desiredmonthint2, "(", desiredmonth, ")") 
+print("You are creating a graph at",desiredtime, desiredmonthint, "(", desiredmonth, ")") 
 
 model(desiredmonth,desiredtime,0,desiredwindturb,0)
