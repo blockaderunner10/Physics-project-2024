@@ -51,6 +51,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.title(f"Power Demand with our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
     plt.tick_params(axis='both', which='major', labelsize=6)
     plt.bar(sources[0],datatoplot[0,0], color="red")
+    #sets colours for all of the bar charts
     if datatoplot[3,0]>0:
         plt.bar(sources[3],datatoplot[3,0],color='green')
     else:
@@ -66,6 +67,7 @@ def getDate():
     desiredmonth=input("Please enter the month you would like to model (Use the 3 letter formse.g. JAN or jan for January)")
     return desiredmonth
 
+#creates a data dictionary for the months and there associated values
 def getDateInt(date):
     monthDict = {"JAN":1, "FEB":2, "MAR":3, "APR":4, "MAY":5, "JUN":6, "JUL":7,
                  "AUG":8, "SEP":9, "OCT":10, "NOV":11, "DEC":12, "jan":1, "feb":2,
@@ -73,11 +75,11 @@ def getDateInt(date):
                  "nov":11,"dec":12}
     return monthDict[date]
 
-
+#creates a function to get the desired time
 def getTime():
     desiredtime=int(input("Please enter the hour you wish to model (between 1 and 24 inclusive e.g. 13 for 1pm)"))
     return (desiredtime)
-
+#creates a function to get the desired number of wind turbines
 def getNoOfWindTurbines():
     desiredwindturb=int(input("Please enter the number of wind turbines you wish to put up"))
     return (desiredwindturb)
