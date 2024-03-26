@@ -28,7 +28,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     
     sources=['Energy Demand','Sewage Supply', 'Solar Supply', 'Onshore Wind Supply','Net Energy']#Creating categories for x axis bar charts
     
-    datatoplot=np.zeros((5,1)) #Creating an empty array for values to plot
+    datatoplot=np.zeros((5,1)) #Creating a zero based array for values to plot
     
     #Calculating Energy Demand per hour from data in csv
     datatoplot[0,0]=-float(proportionsforhours[time][1])*float(energyperday[month][1])
