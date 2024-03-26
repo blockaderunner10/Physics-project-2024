@@ -49,11 +49,14 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.ylabel('Power Demand/Supply in kW')
     plt.title(f"Power Demand with our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
     plt.tick_params(axis='both', which='major', labelsize=6)
-    
-    if datatoplot[4,0]>0:
+    if datatoplot[3,0]>0:
         plt.bar(sources[3],datatoplot[3,0],color='green')
     else:
         plt.bar(sources[3],datatoplot[3,0],color='red')
+    if datatoplot[4,0]>0:
+        plt.bar(sources[4],datatoplot[4,0],color='green')
+    else:
+        plt.bar(sources[4],datatoplot[4,0],color='red')
     
     plt.show()
 
@@ -102,4 +105,3 @@ desiredwindturb=noofwindturbines()
 print("You are creating a graph at",desiredtime, desiredmonthint, "(", desiredmonth, ")") 
 
 model(desiredmonth,desiredtime,0,desiredwindturb,0)
-
