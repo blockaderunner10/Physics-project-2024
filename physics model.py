@@ -91,7 +91,6 @@ def getdate():
         case "DEC":
             desiredmonthint=12
     return (desiredmonthint,desiredmonth)
-    print(desiredmonthint2, desiredmonth)
     
 def gettime():
     desiredtime=int(input("Please enter the hour you wish to model (between 1 and 24 inclusive e.g. 13 for 1pm)"))
