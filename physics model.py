@@ -49,6 +49,8 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.ylabel('Power Demand/Supply in kW')
     plt.title(f"Power Demand with our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
     plt.tick_params(axis='both', which='major', labelsize=6)
+
+    #Sets colours on the bars
     if datatoplot[3,0]>0:
         plt.bar(sources[3],datatoplot[3,0],color='green')
     else:
@@ -61,6 +63,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.show()
 
 def getdate():
+    #Allows for selection of month
     desiredmonth=input("Please enter the month you would like to model (Use the 3 letter forms in all caps e.g. JAN for January)")
     match desiredmonth:
         case "JAN":
