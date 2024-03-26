@@ -1,4 +1,5 @@
 import csv
+import string 
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -49,8 +50,6 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.ylabel('Power Demand/Supply in kW')
     plt.title(f"Power Demand with our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
     plt.tick_params(axis='both', which='major', labelsize=6)
-
-    #Sets colours on the bars
     if datatoplot[3,0]>0:
         plt.bar(sources[3],datatoplot[3,0],color='green')
     else:
@@ -62,48 +61,32 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     
     plt.show()
 
-def getdate():
-    #Allows for selection of month
-    desiredmonth=input("Please enter the month you would like to model (Use the 3 letter forms in all caps e.g. JAN for January)")
-    match desiredmonth:
-        case "JAN":
-            desiredmonthint=1
-        case "FEB":
-            desiredmonthint=2
-        case "MAR":
-            desiredmonthint=3
-        case "APR":
-            desiredmonthint=4
-        case "MAY":
-            desiredmonthint=5
-        case "JUN":
-            desiredmonthint=6
-        case "JUL":
-            desiredmonthint=7
-        case "AUG":
-            desiredmonthint=8
-        case "SEP":
-            desiredmonthint=9
-        case "OCT":
-            desiredmonthint=10
-        case "NOV":
-            desiredmonthint=11
-        case "DEC":
-            desiredmonthint=12
-    return (desiredmonthint,desiredmonth)
-    
-def gettime():
+def getDate():
+    desiredmonth=input("Please enter the month you would like to model (Use the 3 letter formse.g. JAN or jan for January)")
+    return desiredmonth
+
+def getDateInt(date):
+    monthDict = {"JAN":1, "FEB":2, "MAR":3, "APR":4, "MAY":5, "JUN":6, "JUL":7,
+                 "AUG":8, "SEP":9, "OCT":10, "NOV":11, "DEC":12, "jan":1, "feb":2,
+                 "mar":3, "apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,
+                 "nov":11,"dec":12}
+    return monthDict[date]
+
+
+def getTime():
     desiredtime=int(input("Please enter the hour you wish to model (between 1 and 24 inclusive e.g. 13 for 1pm)"))
     return (desiredtime)
 
-def noofwindturbines():
+def getNoOfWindTurbines():
     desiredwindturb=int(input("Please enter the number of wind turbines you wish to put up"))
     return (desiredwindturb)
     
 
-desiredmonth, desiredmonthint =getdate()
-desiredtime=gettime()
-desiredwindturb=noofwindturbines()
-print("You are creating a graph at",desiredtime, desiredmonthint, "(", desiredmonth, ")") 
+desiredmonth = getDate()
+desiredmonthint = getDateInt(desiredmonth)
+desiredtime = getTime()
+desiredwindturb = getNoOfWindTurbines()
 
-model(desiredmonth,desiredtime,0,desiredwindturb,0)
+print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")") 
+
+model(desiredmonthint,desiredtime,0,desiredwindturb,0)
