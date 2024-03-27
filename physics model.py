@@ -14,12 +14,10 @@ proportionsforhours = [[x[0], (x[1])] for x in dfm[1:26]]#Removing headers and g
 
 energyperday = [[x[3], (x[4])] for x in dfm[1:14]]
 
-windturb = [[(x[3]), (x[4]), (x[5])] for x in wtd[1:12]]
+windturb = [[(x[5]), (x[6])] for x in wtd[1:12]]
 
-#MODEL OF POWER CONSUMPTION
+#MODEL
 def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number of Solar Panels, number of Wind Turbines, number of Tidal Turbines
-    month=month-1 #Subtracting 1 to factor in for first element being 0th index in the array but 1st month (January), for example
-    time=time-1 
     
     sources=['Energy Demand','Sewage Supply', 'Solar Supply', 'Onshore Wind Supply','Net Energy']#Creating categories for x axis bar charts
     
@@ -29,8 +27,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     datatoplot[0,0]=-float(proportionsforhours[time][1])*float(energyperday[month][1])
     
     #Calculating Power from Wind Turbines from wind speed data in csv
-    datatoplot[3,0]=float(windturb[month][2])*desiredwindturb/(1000)
-    print ("WINDPOWER CHECK", float(windturb[month][2])*desiredwindturb/(1000))
+    datatoplot[3,0]=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)/1000
     
     datatoplot[4,0]=datatoplot[1,0]+datatoplot[2,0]+datatoplot[3,0]+datatoplot[0,0]
     
@@ -41,7 +38,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.axhline(y=0,color='black',linewidth=1)
     plt.xlabel('Resource')
     plt.ylabel('Power Demand/Supply in kW')
-    plt.title(f"Power Demand with our plan for renewable energy at {proportionsforhours[time][0]}:00 in {energyperday[month][0]}")
+    plt.title(f"Power Demand with our plan for renewable energy at {desiredtime}:00 in {desiredmonth}")
     plt.tick_params(axis='both', which='major', labelsize=6)
     plt.bar(sources[0],datatoplot[0,0], color="red")
     #sets colours for all of the bar charts
@@ -60,7 +57,7 @@ def getDate():
     desiredmonth=input("Please enter the month you would like to model (Use the 3 letter formse.g. JAN or jan for January)")
     return desiredmonth
 
-#creates a data dictionary for the months and there associated values
+#creates a data dictionary for the months and their associated values
 def getDateInt(desiredmonth):
     monthDict = {"JAN":1, "FEB":2, "MAR":3, "APR":4, "MAY":5, "JUN":6, "JUL":7,
                  "AUG":8, "SEP":9, "OCT":10, "NOV":11, "DEC":12, "jan":1, "feb":2,
@@ -68,7 +65,7 @@ def getDateInt(desiredmonth):
                  "nov":11,"dec":12}
     if desiredmonth not in monthDict:
         while True:
-            desiredmonth = input("Please re-enter the desired month in a 3 letter form (CAPS or no caps are allowed) ")
+            desiredmonth = input("Please re-enter the desired month in a 3 letter form (CAPS or no caps are allowed)")
             if desiredmonth in monthDict:
                 break
     return monthDict[desiredmonth]
@@ -87,32 +84,39 @@ def getTime():
         if desiredtime>=1:
             break
     return (desiredtime)
+
 #creates a function to get the desired number of wind turbines
 def getNoOfWindTurbines():
     desiredwindturb=float(input("Please enter the number of wind turbines you wish to put up"))
     while  desiredwindturb <0:
         print ("you can't have negative wind turbines")
-        desiredwindturb=float(input("please enter the number of wind turbines you wish to put up"))
+        desiredwindturb=float(input("Please enter the number of wind turbines you wish to put up"))
         if desiredwindturb>=0:
             break
-    desireddiameter=float(input("what diameter of wind turbine do you wish to model (m)?"))
-    windefficiancy=float(input("What is ht eefficiant of the wind turbines?"))
-    return (desiredwindturb,desireddiameter, windefficiancy)
+    desireddiameter=float(input("What diameter of wind turbine do you wish to model (m)?"))
+    return (desiredwindturb,desireddiameter)
 
-    def windcalcs(desiredwindturb,desireddiameter,windefficiancy,windturb,desiredmonth):
-        month=windturb[desiredmonth][4]
-        month=month-1
-        month=int(month)
-        Windpower1=(windefficiancy*0.5*1.3)*(windturb[month][3])*((np.pi)/4)*desireddiameter^2
-        netwind=Windpower1*desiredwindturb
-        return(netwind)
+#Calculating power output of wind turbines
+def windcalcs(month,desireddiameter,desiredwindturb):
+    #Ouputs power output of wind turbines in W
+    windeff=windturb[month][1]
+    windspeed=windturb[month][0]
+    Windpower1=(float(windeff)*0.5*1.3)*(float(windspeed)**(3))*((np.pi)/4)*float(desireddiameter)**2
+    netwind=Windpower1*desiredwindturb
+    return netwind
+
+#Inputs
 
 desiredmonth = getDate()
 desiredmonthint = getDateInt(desiredmonth)
+month=int(desiredmonthint)-1
 desiredtime = getTime()
-desiredwindturb,desiredwindturb,windefficiancy = getNoOfWindTurbines()
-netwind=windcalcs(desiredwindturb,desiredwindturb,windefficiancy,windturb,desiredmonth)
+time=int(desiredtime)-1 
+desiredwindturb,desireddiameter = getNoOfWindTurbines()
+netwind=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)
+
+#Ouptuts:
 
 print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")") 
-print(netwind)
+print(windcalcs(desiredmonthint,desireddiameter,desiredwindturb))
 model(desiredmonthint,desiredtime,0,desiredwindturb,0)
