@@ -101,6 +101,15 @@ def getNoOfWindTurbines():
     desireddiameter=float(input("What diameter of wind turbine do you wish to model (m)?"))
     return (desiredwindturb,desireddiameter)
 
+#Calculating power output of wind turbines
+def windcalcs(month,desireddiameter,desiredwindturb):
+    #Ouputs power output of wind turbines in W
+    windeff=windturb[month][1]
+    windspeed=windturb[month][0]
+    Windpower1=(float(windeff)*0.5*1.3)*(float(windspeed)**(3))*((np.pi)/4)*float(desireddiameter)**2
+    netwind=Windpower1*desiredwindturb
+    return netwind
+
 #Creates a function to get the desired number/area of solar panels
 def getNoOfSolarPanels():
     desiredsolarpanels=float(input("Please enter the number of solar panels you wish to put up"))
@@ -112,22 +121,11 @@ def getNoOfSolarPanels():
     desiredarea=float(input("What area would you like your solar panel to be (m^2)?"))
     return (desiredsolarpanels,desiredarea)
 
-#Calculating power output of wind turbines
-def windcalcs(month,desireddiameter,desiredwindturb):
-    #Ouputs power output of wind turbines in W
-    windeff=windturb[month][1]
-    windspeed=windturb[month][0]
-    Windpower1=(float(windeff)*0.5*1.3)*(float(windspeed)**(3))*((np.pi)/4)*float(desireddiameter)**2
-    netwind=Windpower1*desiredwindturb
-    return netwind
-
-
 def solarcalcs(month,desiredarea,desiredsolarpanels):
     sunhours=solardata[month][1]
     area=desiredarea
     netsolar= 0.2*float(area)*float(sunhours)*float(desiredsolarpanels)
     return netsolar
-
 #Inputs
 
 desiredmonth = getDate()
@@ -143,6 +141,6 @@ netsolar=solarcalcs(month,desiredarea,desiredsolarpanels)
 #Ouptuts:
 
 print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")")
-print(windcalcs(desiredmonthint,desireddiameter,desiredwindturb))
+print("net wind",windcalcs(desiredmonthint,desireddiameter,desiredwindturb))
 print(f"Net solar = {netsolar}")
 model(desiredmonthint,desiredtime,desiredsolarpanels,desiredwindturb,0)
