@@ -1,4 +1,4 @@
-import csv
+import csv 
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -36,7 +36,6 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     
     print(datatoplot)
     
-    
     #Plotting bar chart
     plt.bar(sources[0:4], datatoplot[0:4,0])
     plt.axhline(y=0,color='black',linewidth=1)
@@ -67,7 +66,6 @@ def getDateInt(desiredmonth):
                  "AUG":8, "SEP":9, "OCT":10, "NOV":11, "DEC":12, "jan":1, "feb":2,
                  "mar":3, "apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,
                  "nov":11,"dec":12}
-    #Allows for re-entry of selected month if error
     if desiredmonth not in monthDict:
         while True:
             desiredmonth = input("Please re-enter the desired month in a 3 letter form (CAPS or no caps are allowed) ")
@@ -91,20 +89,30 @@ def getTime():
     return (desiredtime)
 #creates a function to get the desired number of wind turbines
 def getNoOfWindTurbines():
-    desiredwindturb=int(input("Please enter the number of wind turbines you wish to put up"))
+    desiredwindturb=float(input("Please enter the number of wind turbines you wish to put up"))
     while  desiredwindturb <0:
         print ("you can't have negative wind turbines")
-        desiredwindturb=int(input("please enter the number of wind turbines you wish to put up"))
+        desiredwindturb=float(input("please enter the number of wind turbines you wish to put up"))
         if desiredwindturb>=0:
             break
-    return (desiredwindturb)
-    
+    desireddiameter=float(input("what diameter of wind turbine do you wish to model (m)?"))
+    windefficiancy=float(input("What is ht eefficiant of the wind turbines?"))
+    return (desiredwindturb,desireddiameter, windefficiancy)
+
+    def windcalcs(desiredwindturb,desireddiameter,windefficiancy,windturb,desiredmonth):
+        month=windturb[desiredmonth][4]
+        month=month-1
+        month=int(month)
+        Windpower1=(windefficiancy*0.5*1.3)*(windturb[month][3])*((np.pi)/4)*desireddiameter^2
+        netwind=Windpower1*desiredwindturb
+        return(netwind)
 
 desiredmonth = getDate()
 desiredmonthint = getDateInt(desiredmonth)
 desiredtime = getTime()
-desiredwindturb = getNoOfWindTurbines()
+desiredwindturb,desiredwindturb,windefficiancy = getNoOfWindTurbines()
+netwind=windcalcs(desiredwindturb,desiredwindturb,windefficiancy,windturb,desiredmonth)
 
 print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")") 
-
+print(netwind)
 model(desiredmonthint,desiredtime,0,desiredwindturb,0)
