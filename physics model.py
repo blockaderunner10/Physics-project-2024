@@ -68,10 +68,11 @@ def getDateInt(desiredmonth):
                  "mar":3, "apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,
                  "nov":11,"dec":12}
     #Allows for re-entry of selected month if error
-    while True:
-        desiredmonth = input("Please re-enter the desired month in a 3 letter form (CAPS or no caps are allowed) ")
-        if desiredmonth in monthDict:
-            break
+    if desiredmonth not in monthDict:
+        while True:
+            desiredmonth = input("Please re-enter the desired month in a 3 letter form (CAPS or no caps are allowed) ")
+            if desiredmonth in monthDict:
+                break
     return monthDict[desiredmonth]
 
 #creates a function to get the desired time
