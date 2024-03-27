@@ -92,6 +92,11 @@ def getTime():
 #creates a function to get the desired number of wind turbines
 def getNoOfWindTurbines():
     desiredwindturb=int(input("Please enter the number of wind turbines you wish to put up"))
+    while  desiredwindturb <0:
+        print ("you can't have negative wind turbines")
+        desiredwindturb=int(input("please enter the number of wind turbines you wish to put up"))
+        if desiredwindturb>=0:
+            break
     return (desiredwindturb)
     
 
