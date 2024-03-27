@@ -78,6 +78,16 @@ def getDateInt(desiredmonth):
 #creates a function to get the desired time
 def getTime():
     desiredtime=int(input("Please enter the hour you wish to model (between 1 and 24 inclusive e.g. 13 for 1pm)"))
+    while desiredtime >24:
+        print("Your selected time does not exist")
+        desiredtime =int(input("Please enter the hour you wish to model (between 1 and 24 inclusive e.g. 13 for 1pm)"))
+        if desiredtime<=24:
+            break
+    while desiredtime <1:
+        print("Your selected time does not exist")
+        desiredtime =int(input("Please enter the hour you wish to model (between 1 and 24 inclusive e.g. 13 for 1pm)"))
+        if desiredtime>=1:
+            break
     return (desiredtime)
 #creates a function to get the desired number of wind turbines
 def getNoOfWindTurbines():
