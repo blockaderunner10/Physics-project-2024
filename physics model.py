@@ -9,12 +9,18 @@ with open('./DATA/DATA FOR MODEL.csv', newline='') as csvfile:
 with open('./DATA/WIND_TURBINE_DATA.csv', newline='') as csvfile:
     reader1 = csv.reader(csvfile, delimiter=',')
     wtd = list(reader1)
+    
+with open('./DATA/SOLARDATA.csv', newline='') as csvfile:
+    reader2 = csv.reader(csvfile, delimiter=',')
+    sd = list(reader2)
 
 proportionsforhours = [[x[0], (x[1])] for x in dfm[1:26]]#Removing headers and grouping data to make objects
 
 energyperday = [[x[3], (x[4])] for x in dfm[1:14]]
 
 windturb = [[(x[5]), (x[6])] for x in wtd[1:12]]
+
+solardata = [[(x[0]),(x[2])] for x in sd[1:12]]
 
 #MODEL
 def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number of Solar Panels, number of Wind Turbines, number of Tidal Turbines
@@ -29,6 +35,8 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     #Calculating Power from Wind Turbines from wind speed data in csv
     datatoplot[3,0]=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)/1000
     
+    datatoplot[2,0]=netsolar
+    
     datatoplot[4,0]=datatoplot[1,0]+datatoplot[2,0]+datatoplot[3,0]+datatoplot[0,0]
     
     print(datatoplot)
@@ -42,14 +50,11 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.tick_params(axis='both', which='major', labelsize=6)
     plt.bar(sources[0],datatoplot[0,0], color="red")
     #sets colours for all of the bar charts
-    if datatoplot[3,0]>0:
-        plt.bar(sources[3],datatoplot[3,0],color='green')
-    else:
-        plt.bar(sources[3],datatoplot[3,0],color='red')
-    if datatoplot[4,0]>0:
-        plt.bar(sources[4],datatoplot[4,0],color='green')
-    else:
-        plt.bar(sources[4],datatoplot[4,0],color='red')
+    for i in range (0,5):
+        if datatoplot[i,0]>0:
+            plt.bar(sources[i],datatoplot[i,0],color='green')
+        else:
+            plt.bar(sources[i],datatoplot[i,0],color='red')
     
     plt.show()
 
@@ -89,12 +94,23 @@ def getTime():
 def getNoOfWindTurbines():
     desiredwindturb=float(input("Please enter the number of wind turbines you wish to put up"))
     while  desiredwindturb <0:
-        print ("you can't have negative wind turbines")
+        print ("You can't a have negative number of wind turbines")
         desiredwindturb=float(input("Please enter the number of wind turbines you wish to put up"))
         if desiredwindturb>=0:
             break
     desireddiameter=float(input("What diameter of wind turbine do you wish to model (m)?"))
     return (desiredwindturb,desireddiameter)
+
+#Creates a function to get the desired number/area of solar panels
+def getNoOfSolarPanels():
+    desiredsolarpanels=float(input("Please enter the number of solar panels you wish to put up"))
+    while  desiredsolarpanels <0:
+        print ("You can't a have negative number of solar panels")
+        desiredwindturb=float(input("Please enter the number of solar panels you wish to put up"))
+        if desiredwindturb>=0:
+            break
+    desiredarea=float(input("What area would you like your solar panel to be (m^2)?"))
+    return (desiredsolarpanels,desiredarea)
 
 #Calculating power output of wind turbines
 def windcalcs(month,desireddiameter,desiredwindturb):
@@ -105,6 +121,13 @@ def windcalcs(month,desireddiameter,desiredwindturb):
     netwind=Windpower1*desiredwindturb
     return netwind
 
+
+def solarcalcs(month,desiredarea,desiredsolarpanels):
+    sunhours=solardata[month][1]
+    area=desiredarea
+    netsolar= 0.2*float(area)*float(sunhours)*float(desiredsolarpanels)
+    return netsolar
+
 #Inputs
 
 desiredmonth = getDate()
@@ -114,9 +137,12 @@ desiredtime = getTime()
 time=int(desiredtime)-1 
 desiredwindturb,desireddiameter = getNoOfWindTurbines()
 netwind=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)
+desiredsolarpanels,desiredarea=getNoOfSolarPanels()
+netsolar=solarcalcs(month,desiredarea,desiredsolarpanels)
 
 #Ouptuts:
 
-print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")") 
+print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")")
 print(windcalcs(desiredmonthint,desireddiameter,desiredwindturb))
-model(desiredmonthint,desiredtime,0,desiredwindturb,0)
+print(f"Net solar = {netsolar}")
+model(desiredmonthint,desiredtime,desiredsolarpanels,desiredwindturb,0)
