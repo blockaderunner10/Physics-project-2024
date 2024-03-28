@@ -14,7 +14,7 @@ with open('./DATA/SOLARDATA.csv', newline='') as csvfile:
     reader2 = csv.reader(csvfile, delimiter=',')
     sd = list(reader2)
 
-proportionsforhours = [[x[0], (x[1])] for x in dfm[1:26]]#Removing headers and grouping data to make objects
+proportionsforhours = [[x[0], (x[1])] for x in dfm[1:26]]#Removing headers and grouping data`a to make objects
 
 energyperday = [[x[3], (x[4])] for x in dfm[1:14]]
 
@@ -30,7 +30,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     datatoplot=np.zeros((5,1)) #Creating a zero based array for values to plot
     
     #Calculating Energy Demand per hour from data in csv
-    datatoplot[0,0]=-float(proportionsforhours[time][1])*float(energyperday[month][1])
+    datatoplot[0,0]=(-float(proportionsforhours[time][1])*float(energyperday[month][1]))/24
     
     #Calculating Power from Wind Turbines from wind speed data in csv
     datatoplot[3,0]=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)/1000
