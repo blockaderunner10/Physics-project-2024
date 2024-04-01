@@ -16,15 +16,16 @@ with open('./DATA/SOLARDATA.csv', newline='') as csvfile:
 
 proportionsforhours = [[x[0], (x[1])] for x in dfm[1:26]]#Removing headers and grouping data`a to make objects
 
-energyperday = [[x[3], (x[4])] for x in dfm[1:14]]
+energyperday = [[x[3], (x[4])] for x in dfm[1:13]]
 
-windturb = [[(x[5]), (x[6])] for x in wtd[1:12]]
+windturb = [[(x[5]), (x[6])] for x in wtd[1:13]]
 
-solardata = [[(x[0]),(x[2])] for x in sd[1:12]]
+solardata = [[(x[0]),(x[2])] for x in sd[1:13]]
 
 #MODEL
-def model(month,time,noofSP,noofWT):#Inputs will be month, time, number of Solar Panels, number of Wind Turbines, number of Tidal Turbines
-    
+def model(desiredmonthint,desiredtime,noofSP,noofWT):#Inputs will be month, time, number of Solar Panels, number of Wind Turbines, number of Tidal Turbines
+    month=desiredmonthint-1
+    time=desiredtime-1
     sources=['Energy Demand','Solar Supply', 'Onshore Wind Supply','Net Energy']#Creating categories for x axis bar charts
     
     datatoplot=np.zeros((4,1)) #Creating a zero based array for values to plot
@@ -102,8 +103,9 @@ def getNoOfWindTurbines():
     return (desiredwindturb,desireddiameter)
 
 #Calculating power output of wind turbines
-def windcalcs(month,desireddiameter,desiredwindturb):
+def windcalcs(desiredmonthint,desireddiameter,desiredwindturb):
     #Ouputs power output of wind turbines in W
+    month=int(desiredmonthint)-1
     windeff=windturb[month][1]
     windspeed=windturb[month][0]
     Windpower1=(float(windeff)*0.5*1.3)*(float(windspeed)**(3))*((np.pi)/4)*float(desireddiameter)**2
@@ -121,7 +123,8 @@ def getNoOfSolarPanels():
     desiredarea=float(input("What area would you like your solar panel to be (m^2)?"))
     return (desiredsolarpanels,desiredarea)
 
-def solarcalcs(month,desiredarea,desiredsolarpanels):
+def solarcalcs(desiredmonthint,desiredarea,desiredsolarpanels):
+    month=desiredmonthint-1
     sunhours=solardata[month][1]
     area=desiredarea
     netsolar= 0.2*float(area)*float(sunhours)*float(desiredsolarpanels)
@@ -130,17 +133,16 @@ def solarcalcs(month,desiredarea,desiredsolarpanels):
 
 desiredmonth = getDate()
 desiredmonthint = getDateInt(desiredmonth)
-month=int(desiredmonthint)-1
 desiredtime = getTime()
-time=int(desiredtime)-1 
 desiredwindturb,desireddiameter = getNoOfWindTurbines()
 netwind=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)
 desiredsolarpanels,desiredarea=getNoOfSolarPanels()
-netsolar=solarcalcs(month,desiredarea,desiredsolarpanels)
+netsolar=solarcalcs(desiredmonthint,desiredarea,desiredsolarpanels)
 
 #Ouptuts:
 
 print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")")
 print("Net wind =",windcalcs(desiredmonthint,desireddiameter,desiredwindturb))
 print(f"Net solar = {netsolar}")
+#print(f"Net Power = {datatoplot[3,0]}")
 model(desiredmonthint,desiredtime,desiredsolarpanels,desiredwindturb)
