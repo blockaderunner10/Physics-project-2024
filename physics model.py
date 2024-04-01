@@ -20,7 +20,7 @@ energyperday = [[x[3], (x[4])] for x in dfm[1:13]]
 
 windturb = [[(x[5]), (x[6])] for x in wtd[1:13]]
 
-solardata = [[(x[0]),(x[2])] for x in sd[1:13]]
+solardata = [[(x[4]),(x[5]),(x[6])] for x in sd[1:13]]
 
 #MODEL
 def model(desiredmonthint,desiredtime,noofSP,noofWT):#Inputs will be month, time, number of Solar Panels, number of Wind Turbines, number of Tidal Turbines
@@ -58,6 +58,7 @@ def model(desiredmonthint,desiredtime,noofSP,noofWT):#Inputs will be month, time
             plt.bar(sources[i],datatoplot[i,0],color='red')
     
     plt.show()
+    return datatoplot
 
 def getDate():
     desiredmonth=input("Please enter the month you would like to model (Use the 3 letter formse.g. JAN or jan for January)")
@@ -123,11 +124,14 @@ def getNoOfSolarPanels():
     desiredarea=float(input("What area would you like your solar panel to be (m^2)?"))
     return (desiredsolarpanels,desiredarea)
 
-def solarcalcs(desiredmonthint,desiredarea,desiredsolarpanels):
+def solarcalcs(desiredmonthint,desiredtime,desiredarea,desiredsolarpanels):
     month=desiredmonthint-1
-    sunhours=solardata[month][1]
-    area=desiredarea
-    netsolar= 0.2*float(area)*float(sunhours)*float(desiredsolarpanels)
+    if desiredtime>float(solardata[month][2]) or desiredtime<float(solardata[month][1]):#If after sunset or before sunrise, no power
+        netsolar=0
+    else:
+        sunhours=solardata[month][0]
+        area=desiredarea
+        netsolar= 0.2*float(area)*float(sunhours)*float(desiredsolarpanels)
     return netsolar
 #Inputs
 
@@ -137,12 +141,12 @@ desiredtime = getTime()
 desiredwindturb,desireddiameter = getNoOfWindTurbines()
 netwind=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)
 desiredsolarpanels,desiredarea=getNoOfSolarPanels()
-netsolar=solarcalcs(desiredmonthint,desiredarea,desiredsolarpanels)
+netsolar=solarcalcs(desiredmonthint,desiredtime,desiredarea,desiredsolarpanels)
 
 #Ouptuts:
 
 print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")")
 print("Net wind =",windcalcs(desiredmonthint,desireddiameter,desiredwindturb))
 print(f"Net solar = {netsolar}")
-#print(f"Net Power = {datatoplot[3,0]}")
-model(desiredmonthint,desiredtime,desiredsolarpanels,desiredwindturb)
+datatoplot=model(desiredmonthint,desiredtime,desiredsolarpanels,desiredwindturb)
+print(f"Net Power = {datatoplot[3,0]}")
