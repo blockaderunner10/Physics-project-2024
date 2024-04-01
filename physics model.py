@@ -23,26 +23,26 @@ windturb = [[(x[5]), (x[6])] for x in wtd[1:12]]
 solardata = [[(x[0]),(x[2])] for x in sd[1:12]]
 
 #MODEL
-def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number of Solar Panels, number of Wind Turbines, number of Tidal Turbines
+def model(month,time,noofSP,noofWT):#Inputs will be month, time, number of Solar Panels, number of Wind Turbines, number of Tidal Turbines
     
-    sources=['Energy Demand','Sewage Supply', 'Solar Supply', 'Onshore Wind Supply','Net Energy']#Creating categories for x axis bar charts
+    sources=['Energy Demand','Solar Supply', 'Onshore Wind Supply','Net Energy']#Creating categories for x axis bar charts
     
-    datatoplot=np.zeros((5,1)) #Creating a zero based array for values to plot
+    datatoplot=np.zeros((4,1)) #Creating a zero based array for values to plot
     
     #Calculating Energy Demand per hour from data in csv
     datatoplot[0,0]=(-float(proportionsforhours[time][1])*float(energyperday[month][1]))/24
     
     #Calculating Power from Wind Turbines from wind speed data in csv
-    datatoplot[3,0]=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)/1000
+    datatoplot[2,0]=windcalcs(desiredmonthint,desireddiameter,desiredwindturb)/1000
     
-    datatoplot[2,0]=netsolar
+    datatoplot[1,0]=netsolar
     
-    datatoplot[4,0]=datatoplot[1,0]+datatoplot[2,0]+datatoplot[3,0]+datatoplot[0,0]
+    datatoplot[3,0]=datatoplot[1,0]+datatoplot[2,0]+datatoplot[3,0]+datatoplot[0,0]
     
     print(datatoplot)
     
     #Plotting bar chart
-    plt.bar(sources[0:4], datatoplot[0:4,0])
+    plt.bar(sources[0:3], datatoplot[0:3,0])
     plt.axhline(y=0,color='black',linewidth=1)
     plt.xlabel('Resource')
     plt.ylabel('Power Demand/Supply in kW')
@@ -50,7 +50,7 @@ def model(month,time,noofSP,noofWT,noofTT):#Inputs will be month, time, number o
     plt.tick_params(axis='both', which='major', labelsize=6)
     plt.bar(sources[0],datatoplot[0,0], color="red")
     #sets colours for all of the bar charts
-    for i in range (0,5):
+    for i in range (0,4):
         if datatoplot[i,0]>0:
             plt.bar(sources[i],datatoplot[i,0],color='green')
         else:
@@ -141,6 +141,7 @@ netsolar=solarcalcs(month,desiredarea,desiredsolarpanels)
 #Ouptuts:
 
 print("You are creating a graph at", desiredtime, desiredmonth, "(", desiredmonthint, ")")
-print("net wind",windcalcs(desiredmonthint,desireddiameter,desiredwindturb))
+print("Net wind =",windcalcs(desiredmonthint,desireddiameter,desiredwindturb))
 print(f"Net solar = {netsolar}")
-model(desiredmonthint,desiredtime,desiredsolarpanels,desiredwindturb,0)
+#print(f"Net Power = {datatoplot[3,0]}")
+model(desiredmonthint,desiredtime,desiredsolarpanels,desiredwindturb)
