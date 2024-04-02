@@ -8,3 +8,5 @@ By group 9:
   Model Created by:  
     Ilana Wigg
     Cameron Wilson
+
+Instructions on how to use model:
