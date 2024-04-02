@@ -1,4 +1,4 @@
-import csv 
+import csv
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -87,6 +87,8 @@ def solarcalcs(desiredarea,desiredsolarpanels):
     plt.show()
     return monthlysolarenergyinkWh
 
+
+
 def netenergy(energypermonth,windenergykWhpermonth,monthlysolarenergyinkWh):
     monthlynetenergyinkWh=np.zeros((12,1))
     for i in range (12):
@@ -117,6 +119,21 @@ def storage(monthlynetenergyinkWh):
     plt.show()
     return storageinkWh
 
+def ProportionofGeneration(windenergykWhpermonth,monthlysolarenergyinkWh):
+    x=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    y1=windenergykWhpermonth.flatten()
+    y2=monthlysolarenergyinkWh.flatten()
+    if None in windenergykWhpermonth or None in monthlysolarenergyinkWh:
+        print ("you stoopid")
+
+    
+    plt.bar(x, y1, color='orange',label='Wind Energy')
+    plt.bar(x, y2, bottom=y1, color='green',label='Solar Energy')
+    plt.legend()
+    plt.show()
+    return (y1,y2,x)
+
+
 desiredwindturb,desireddiameter=getinfowind()
 desiredsolarpanels,desiredarea=getNoOfSolarPanels()
 windenergykWhpermonth=windcalc(desiredwindturb,desireddiameter)
@@ -124,3 +141,6 @@ monthlysolarenergyinkWh=solarcalcs(desiredarea,desiredsolarpanels)
 energypermonth=model()
 monthlynetenergyinkWh=netenergy(energypermonth,windenergykWhpermonth,monthlysolarenergyinkWh)
 storageinkWh=storage(monthlynetenergyinkWh)
+(y1,y2,x)=ProportionofGeneration(windenergykWhpermonth,monthlysolarenergyinkWh)
+print ('WInd',windenergykWhpermonth)
+print('SUN', monthlysolarenergyinkWh)
