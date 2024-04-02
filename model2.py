@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 with open('./DATA/DATA FOR MODEL.csv', newline='') as csvfile:
     reader0 = csv.reader(csvfile, delimiter=',')
     dfm = list(reader0)
-with open('./DATA/WIND_TURBINE_DATA.csv', newline='') as csvfile:
+with open('./DATA/WINDTURBINEDATA.csv', newline='') as csvfile:
     reader1 = csv.reader(csvfile, delimiter=',')
     wtd = list(reader1)
     
