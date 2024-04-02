@@ -54,14 +54,18 @@ def windcalc(desiredwindturb,desireddiameter):  #WIND CALC DOES NOT WORK, NEEDS 
     windpermonth=np.zeros((12,1))
     for i in range (12):
         windeff=windturb[i][1]
+        print(f"windeff={windeff}")
         windspeed=windturb[i][0]
+        print(f"windspeed={windspeed}")
         Windpower1=(float(windeff)*0.5*1.3)*(float(windspeed)**(3))*((np.pi)/4)*float(desireddiameter)**2
-        netwind=Windpower1*desiredwindturb
-        windpermonth[i][0]=(float(netwind) )*(float(daysinmonth[i][1]))
-        print ('thing', windpermonth[i])
+        netwind=(((Windpower1)/1000)*(float(daysinmonth[i][1])*24))*desiredwindturb
+        print (f"power by wind in kW = {netwind}")
+        windpermonth[i][0]=netwind
+        print ('energy produced by wind in a month=', windpermonth[i])
     return(windpermonth)
 
 desiredwindturb,desireddiameter=getinfowind()
 windpermonth=windcalc(desiredwindturb,desireddiameter)
 model()
+
 
