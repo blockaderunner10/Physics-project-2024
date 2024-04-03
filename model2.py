@@ -73,12 +73,9 @@ def solarcalcs(desiredarea,desiredsolarpanels):
     monthlysolarenergyinkWh=np.zeros((12,1))
     for j in range (12):
         for i in range (24):
-            if i>float(solardata[j][2]) or i<float(solardata[j][1]):#If after sunset or before sunrise, no energy
-                hourlysolarenergyinkWh=0
-            else:
                 sunhours=solardata[j][0]
-                hourlysolarenergyinkWh= 0.2*float(desiredarea)*float(sunhours)*float(desiredsolarpanels)
-                monthlysolarenergyinkWh[j][0]+=hourlysolarenergyinkWh*daysinmonth[j][1]*24
+                dailysolarenergyinkWh= 0.2*float(desiredarea)*float(sunhours)*float(desiredsolarpanels)
+                monthlysolarenergyinkWh[j][0]+=dailysolarenergyinkWh*daysinmonth[j][1]
         plt.bar(months[j],monthlysolarenergyinkWh[j][0],color='green')
     plt.xlabel('Months')
     plt.ylabel('Energy produced by solar panels (kWh)')
@@ -86,8 +83,6 @@ def solarcalcs(desiredarea,desiredsolarpanels):
     plt.tick_params(axis='both', which='major', labelsize=6)
     plt.show()
     return monthlysolarenergyinkWh
-
-
 
 def netenergy(energypermonth,windenergykWhpermonth,monthlysolarenergyinkWh):
     monthlynetenergyinkWh=np.zeros((12,1))
@@ -144,3 +139,4 @@ storageinkWh=storage(monthlynetenergyinkWh)
 (y1,y2,x)=ProportionofGeneration(windenergykWhpermonth,monthlysolarenergyinkWh)
 print ('WInd',windenergykWhpermonth)
 print('SUN', monthlysolarenergyinkWh)
+
