@@ -24,11 +24,17 @@ Graph 2: Energy produced by your solar panels (in kWh) broken down by months in 
 Graph 3: Energy consumption (in kWh) broken down by months in the year
 Graph 4: Net energy (in kWh) broken down by months in the year
 Graph 5: Cumulative energy/Energy in storage each month (in kWh)
-
-For Test Cases Model:
-1. Hit run on the code
-2. 
-
 Colour coding:
 Red - Energy consumed or energy deficit
 Green - Energy produced or energy surplus
+
+For Test Cases Model:
+1. Hit run on the code
+2. Input the wind speed in ms^-1
+3. Input the diameter of wind turbine you wish to put up in m (suggested values are given)
+4. Input the efficiency of the wind turbine (as a decimal)
+5. A power rating of that wind turbine will be produced, in kilowatts
+6. Input the number of sun hours in the day
+7. Input the area of solar panel you wish to put up in m^2
+8. Input the efficiency of the solar panel (as a decimal)
+9. A power rating of that solar panel will be produced, in kilowatts
