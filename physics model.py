@@ -101,6 +101,7 @@ def getNoOfWindTurbines():
         desiredwindturb=float(input("Please enter the number of wind turbines you wish to put up"))
         if desiredwindturb>=0:
             break
+    print ("suggested turbine diameters are: \n 103m used in the raith with farm \n 137m produced by GEVERNOVA \n 164m also produced by GEVERNOVA")
     desireddiameter=float(input("What diameter of wind turbine do you wish to model (m)?"))
     return (desiredwindturb,desireddiameter)
 
