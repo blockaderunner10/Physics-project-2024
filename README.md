@@ -25,6 +25,10 @@ Graph 3: Energy consumption (in kWh) broken down by months in the year
 Graph 4: Net energy (in kWh) broken down by months in the year
 Graph 5: Cumulative energy/Energy in storage each month (in kWh)
 
+For Test Cases Model:
+1. Hit run on the code
+2. 
+
 Colour coding:
 Red - Energy consumed or energy deficit
 Green - Energy produced or energy surplus
