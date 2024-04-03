@@ -35,6 +35,7 @@ def model():
     return energypermonth
     
 def getinfowind():
+    print ("suggested turbine diameters are: \n 103m used in the raith with farm \n 137m produced by GEVERNOVA \n 164m also produced by GEVERNOVA")
     desiredwindturb=float(input("Please enter the number of wind turbines you wish to put up"))
     while  desiredwindturb <0:
         print ("You can't a have negative number of wind turbines")
@@ -139,4 +140,5 @@ storageinkWh=storage(monthlynetenergyinkWh)
 (y1,y2,x)=ProportionofGeneration(windenergykWhpermonth,monthlysolarenergyinkWh)
 print ('WInd',windenergykWhpermonth)
 print('SUN', monthlysolarenergyinkWh)
+
 
