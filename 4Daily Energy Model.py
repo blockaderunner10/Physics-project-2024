@@ -131,9 +131,9 @@ def solarcalcs(desiredmonthint,desiredtime,desiredarea,desiredsolarpanels):
     if desiredtime>float(solardata[month][2]) or desiredtime<float(solardata[month][1]):#If after sunset or before sunrise, no power
         netsolar=0
     else:
-        sunhours=solardata[month][0]
+        irradiance=solardata[month][0]
         area=desiredarea
-        netsolar= 0.2*float(area)*float(sunhours)*float(desiredsolarpanels)
+        netsolar= (0.2*float(area)*float(irradiance)*float(desiredsolarpanels))/1000
     return netsolar
 #Inputs
 
