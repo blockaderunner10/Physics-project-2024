@@ -95,11 +95,11 @@ def solarcalcs(desiredarea1,desiredsolarpanels1,desiredarea2,desiredsolarpanels2
     monthlysolarenergyinkWh=np.zeros((12,1)) #Creates an empty array for the solar energy data to go into
     for j in range (12):
         for i in range (24):
-                sunhours=solardata[j][0] #Reads in the average number of sunhours in that month from the csv
+                irradiance=solardata[j][0] #Reads in the average irradiance in that month from the csv
                 #Calculating hourly solar power for both the solar panels in the wind farm and on houses
-                hourlysolarpowerinkW= (0.2*float(desiredarea1)*float(sunhours)*float(desiredsolarpanels1))+(0.2*float(desiredarea2)*float(sunhours)*float(desiredsolarpanels2))
+                solarpowerinkW= (0.2*float(desiredarea1)*float(irradiance)*float(desiredsolarpanels1))+(0.2*float(desiredarea2)*float(irradiance)*float(desiredsolarpanels2))
                 #1kW for 1 hour = 1kWh, so sum and multiply by the number of days in the month
-                monthlysolarenergyinkWh[j][0]+=hourlysolarpowerinkW*daysinmonth[j][1] #Converts to monthly
+                monthlysolarenergyinkWh[j][0]+=solarpowerinkW*daysinmonth[j][1] #Converts to monthly
         plt.bar(months[j],monthlysolarenergyinkWh[j][0],color='green') #Plots on graph
     plt.xlabel('Months')
     plt.ylabel('Energy produced by solar panels (kWh)')
