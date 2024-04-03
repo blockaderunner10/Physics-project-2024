@@ -38,5 +38,5 @@ def getsolareff():
 solareff=getsolareff()
 
 #Outputs the power of the solar panel in kilowatts
-solarpowerkwatts=float(solareff)*float(desiredarea)*float(sunhours)
+solarpowerkwatts=float(solareff)*float(desiredarea)*float(solarhours)
 print(f"For a day with {solarhours} sun hours, a {desiredarea}m^2 solar panel, with an efficiency of {solareff} will produce {solarpowerkwatts} kW of power")           
