@@ -42,3 +42,9 @@ For Test Cases Model:
 References for data on the csv:
 DATA FOR MODEL.csv:
 Average Energy Consumption per day (kWh): UK Government. ‘Energy Trends: UK Electricity: Table 5.5’; 2024 [Accessed on 20/03/2024]. Available from: https://www.gov.uk/government/statistics/electricity-section-5-energy-trends
+
+SOLARDATA.csv:
+Solar Irradiance (Wm^-2): Mackay, David. 'Sustainable Energy - without the hot air’; 2015. [Accessed on 02/04/2024]. Available from: https://www.withouthotair.com/ 
+Sunrise and Sunset Data: Time and Data. 'St Andrews, Scotland, United Kingdom — Sunrise, Sunset, and Daylength'; 2024. [Accessed on 01/04/2024]. Available from: https://www.timeanddate.com/sun/uk/st-andrews
+
+WINDTURBINEDATA.csv:
