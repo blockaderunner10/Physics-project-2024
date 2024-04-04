@@ -48,3 +48,5 @@ Solar Irradiance (Wm^-2): Mackay, David. 'Sustainable Energy - without the hot a
 Sunrise and Sunset Data: Time and Data. 'St Andrews, Scotland, United Kingdom — Sunrise, Sunset, and Daylength'; 2024. [Accessed on 01/04/2024]. Available from: https://www.timeanddate.com/sun/uk/st-andrews
 
 WINDTURBINEDATA.csv:
+Average Windspeed: Met Office. ‘Leuchars (Fife) UK Climate Average’; 2020 [Accessed on 25/03/2024]. Available from: https://www.metoffice.gov.uk/research/climate/maps-and-data/uk-climate-averages/gfjbwz5gy 
+Efficiency Benchmark: Gu, Yujiong and Xing, Yue. 'Online Monitoring of Wind Turbine Operation Efficiency and Optimization Based on Benchmark Values'; 2019. Available from: https://ieeexplore.ieee.org/ielx7/6287639/8600701/08835114.pdf?tag=1
