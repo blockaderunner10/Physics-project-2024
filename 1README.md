@@ -38,3 +38,6 @@ For Test Cases Model:
 7. Input the area of solar panel you wish to put up in m^2
 8. Input the efficiency of the solar panel (as a decimal)
 9. A power rating of that solar panel will be produced, in kilowatts
+
+References for data on the csv:
+DATA FOR MODEL.csv:
